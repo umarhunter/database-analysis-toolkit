@@ -3,7 +3,7 @@
 
 ## Overview
 
-Database Consistency Checker is a Python Jupyter notebook designed to ensure data integrity by identifying inconsistencies between two flat files. One of these files serves as the database for an organization or corporation. The tool logs any inconsistencies found, facilitating easy identification and correction of data issues.
+Database-Analysis is a Python Jupyter notebook designed to ensure data integrity by identifying inconsistencies between two flat files. One of these files serves as the database for an corporation/organization . The tool logs any inconsistencies found, facilitating easy identification and correction of data issues. In addition, it provides some analytics that may be of use.
 
 ## Features
 
@@ -27,12 +27,12 @@ Follow these steps to set up your environment and run the Jupyter notebook:
 1. **Clone the Repository**
 
     ```bash
-    git clone https://github.com/umarhunter/database_analysis.git
+    git clone https://github.com/umarhunter/database-analysis.git
     ```
 
 2. **Enter the Repo**
    ```bash
-   cd database-consistency-checker
+   cd database-analysis
    ```
    
 3. **Create a Virtual Environment**
@@ -83,7 +83,7 @@ Follow these steps to set up your environment and run the Jupyter notebook:
 
 3. **Open the Notebook**
 
-    In the Jupyter interface, open `Database_Consistency_Checker.ipynb`.
+    In the Jupyter interface, open `database-analysis.ipynb`.
 
 ## Usage
 
@@ -102,9 +102,9 @@ Follow these steps to set up your environment and run the Jupyter notebook:
 ## Project Structure
 
 ```
-database-consistency-checker/
+database-analysis/
 │
-├── Database_Consistency_Checker.ipynb  # Main Jupyter notebook
+├── database-analysis.ipynb  # Main Jupyter notebook
 ├── requirements.txt                   # Project dependencies
 ├── data/                              # Directory to store your flat files
 │   ├── reference_file.csv             # Example reference file
@@ -114,7 +114,7 @@ database-consistency-checker/
 
 ## Author
 
-This project is created and maintained by Umarhunter.
+This project is created and maintained by @umarhunter.
 
 ## Contributing
 
