@@ -63,6 +63,7 @@ Follow these steps to set up your environment and run the Jupyter notebook:
     pip install -r requirements.txt
     ```
 
+
 ### Setting Up Jupyter
 
 1. **Install Jupyter**
@@ -89,7 +90,7 @@ Follow these steps to set up your environment and run the Jupyter notebook:
 
 1. **Prepare Your Files**
 
-    Ensure you have the two flat files ready. One file should be the reference database, and the other should be the data you want to compare against the database.
+    Ensure you have the two flat files ready. One file should be the reference database, and the other should be the data you want to compare against the database. Sample files have already been provided on your behalf (credit: ```generatedata.com```).
 
 2. **Run the Notebook**
 
@@ -107,8 +108,8 @@ database-analysis/
 ├── database-analysis.ipynb  # Main Jupyter notebook
 ├── requirements.txt                   # Project dependencies
 ├── data/                              # Directory to store your flat files
-│   ├── reference_file.csv             # Example reference file
-│   └── target_file.csv                # Example target file
+│   ├── database.csv                   # Example reference file
+│   └── target.csv                     # Example target file
 └── logs/                              # Directory to store log files
 ```
 
