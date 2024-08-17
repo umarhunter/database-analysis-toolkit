@@ -1,0 +1,9 @@
+input_file: "data/database.csv"
+output_file: "results/results.csv"
+sort_by_columns: ["first_name", "last_name"]
+geospatial_analysis: "True"
+geospatial_columns: ["lat", "lon"]
+geospatial_threshold: 0.0001
+fuzzy_matching: "True"
+fuzzy_threshold: 0.8
+fuzzy_columns: ["address"]
