@@ -4,6 +4,9 @@ import yaml
 import pandas as pd
 
 from util import util
+from modules.data_loader import load_data
+from modules.geospatial_analysis import perform_geospatial_analysis
+from modules.fuzzy_matching import perform_fuzzy_matching
 
 # Set up logging
 logging.basicConfig(
@@ -70,8 +73,14 @@ def main():
     print("Configuration:")
     print(config)
 
-    df = pd.read_csv(input_file)
+    df = load_data(config['input_file'])
     logging.info(f"Loaded {df.shape[0]} rows and {df.shape[1]} columns")
+
+    if config['geospatial_analysis'] == 'True':
+        perform_geospatial_analysis(df, config['geospatial_columns'], config['geospatial_threshold'])
+
+    if config['fuzzy_matching'] == 'True':
+        perform_fuzzy_matching(df, config['fuzzy_columns'], config['fuzzy_threshold'])
 
 
 if __name__ == "__main__":
