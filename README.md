@@ -130,7 +130,7 @@ We welcome contributions to the Database Analysis Toolkit! If you would like to 
 
 ## License
 
-This project is licensed under the GNU License. See the `LICENSE` file for more details.
+This project is licensed under the GPL-3 License. See the `LICENSE` file for more details.
 
 ## Acknowledgements
 
