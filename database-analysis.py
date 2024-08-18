@@ -8,11 +8,15 @@ from modules.data_loader import load_data
 from modules.geospatial_analysis import perform_geospatial_analysis
 from modules.fuzzy_matching import perform_fuzzy_matching
 
-# Set up logging
+# We can use the logging module to log messages to a file and/or the console
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
+    level=logging.INFO,  # Set the minimum logging level (e.g., INFO, DEBUG, ERROR)
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  # Set the logging format
+    datefmt='%Y-%m-%d %H:%M:%S',  # Set the date format in log messages
+    handlers=[
+        logging.FileHandler("logs/logfile.log"),  # Log to a file named "logfile.log"
+        logging.StreamHandler()  # Optional, for logging to the console
+    ]
 )
 
 
@@ -27,10 +31,12 @@ def parse_args():
     parser.add_argument('--input_file', type=str, help='Path to the input CSV file')
     parser.add_argument('--output_file', type=str, help='Path to the output file')
     parser.add_argument('--sort_by_columns', type=str, nargs='+', help='Columns to sort by')
-    parser.add_argument('--geospatial_analysis', type=str, choices=['True', 'False'], help='Enable or disable geospatial analysis')
+    parser.add_argument('--geospatial_analysis', type=str, choices=['True', 'False'],
+                        help='Enable or disable geospatial analysis')
     parser.add_argument('--geospatial_columns', type=str, nargs='+', help='Columns to apply geospatial analysis')
     parser.add_argument('--geospatial_threshold', type=float, help='Threshold for geospatial analysis')
-    parser.add_argument('--fuzzy_matching', type=str, choices=['True', 'False'], help='Enable or disable fuzzy matching')
+    parser.add_argument('--fuzzy_matching', type=str, choices=['True', 'False'],
+                        help='Enable or disable fuzzy matching')
     parser.add_argument('--fuzzy_threshold', type=float, help='Threshold for fuzzy matching')
     parser.add_argument('--fuzzy_columns', type=str, nargs='+', help='Columns to apply fuzzy matching')
     return parser.parse_args()
@@ -60,8 +66,8 @@ def main():
     if args.fuzzy_columns:
         config['fuzzy_columns'] = args.fuzzy_columns
 
-    input_file = config['input_file']
-    output_file = config['output_file']
+    input_file = config['input_file_name']
+    output_file = config['output_file_name']
     sort_by_columns = config['sort_by_columns']
     geospatial_analysis = config['geospatial_analysis']
     geospatial_columns = config['geospatial_columns']
@@ -73,14 +79,20 @@ def main():
     print("Configuration:")
     print(config)
 
-    df = load_data(config['input_file'])
+    df = load_data(input_file)
     logging.info(f"Loaded {df.shape[0]} rows and {df.shape[1]} columns")
 
-    if config['geospatial_analysis'] == 'True':
-        perform_geospatial_analysis(df, config['geospatial_columns'], config['geospatial_threshold'])
+    if geospatial_analysis:
+        geo_df = perform_geospatial_analysis(df, sort_by_columns, geospatial_columns, geospatial_threshold)
+        file_name = 'geospatial_analysis_' + output_file
+        util.save_file(geo_df, file_name)
+        logging.info(f"Successfully wrote {geo_df.shape[0]} rows to {file_name}")
 
-    if config['fuzzy_matching'] == 'True':
-        perform_fuzzy_matching(df, config['fuzzy_columns'], config['fuzzy_threshold'])
+    if fuzzy_matching:
+        fuzz_df = perform_fuzzy_matching(df, sort_by_columns, fuzzy_columns, fuzzy_threshold)
+        file_name = 'fuzzy_matching_' + output_file
+        util.save_file(fuzz_df, file_name)
+        logging.info(f"Successfully wrote {fuzz_df.shape[0]} rows to {file_name}")
 
 
 if __name__ == "__main__":
