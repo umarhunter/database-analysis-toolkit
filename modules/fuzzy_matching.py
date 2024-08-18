@@ -26,15 +26,15 @@ def perform_fuzzy_matching(df, sort_cols, fuz_cols, threshold=90):
         for col in fuz_cols:
             choices = group[col].tolist()
 
-            for i, item in enumerate(choices):
+            for index, item in enumerate(choices):
                 # Compare the current item against the rest of the group
-                for j in range(i + 1, len(choices)):
+                for j in range(index + 1, len(choices)):
                     match_score = fuzz.WRatio(item, choices[j], processor=utils.default_process)
 
                     if match_score >= threshold:
                         # Collect the match result as a dictionary
                         results.append({
-                            "index1": group.index[i],
+                            "index1": group.index[index],
                             "index2": group.index[j],
                             "match_score": match_score,
                             col: item,
