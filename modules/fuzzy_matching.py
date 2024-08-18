@@ -1,42 +1,47 @@
 import pandas as pd
-from rapidfuzz import fuzz, process
+from rapidfuzz import fuzz, process, utils
 
 
-def perform_fuzzy_matching(df, columns, threshold=90):
+def perform_fuzzy_matching(df, sort_cols, fuz_cols, threshold=90):
     """
     Perform fuzzy matching on specified columns of a DataFrame.
 
     @param df: pandas DataFrame containing the data.
-    @param columns: List of columns to perform fuzzy matching on.
+    @param sort_cols: List of columns to sort and group by before performing matching.
+    @param fuz_cols: List of columns to perform fuzzy matching on.
     @param threshold: Matching threshold (0-100), where a higher number indicates a stricter match.
     return: DataFrame with potential matches.
     """
-    # Create a result DataFrame to store the matches
-    result_df = pd.DataFrame(columns=["index1", "index2", "match_score"] + columns)
+    # Sort the DataFrame based on the sort columns. Sorting before grouping is important for performance,
+    # and allows us to visualize the rows.
+    df = df.sort_values(by=sort_cols).reset_index(drop=True)
 
-    # Iterate through each column specified for fuzzy matching
-    for column in columns:
-        # Extract the column data as a list
-        choices = df[column].tolist()
+    # Create a list to store dictionaries of matches
+    results = []
 
-        # Iterate through each element in the column
-        for i, item in enumerate(choices):
-            # Find matches within the list
-            matches = process.extract(item, choices, scorer=fuzz.ratio, limit=None)
+    # Group the DataFrame by the sort columns
+    grouped_df = df.groupby(sort_cols)
 
-            # Filter matches by threshold and avoid self-matching
-            for match in matches:
-                match_index = match[2]
-                match_score = match[1]
+    for group_name, group in grouped_df:
+        for col in fuz_cols:
+            choices = group[col].tolist()
 
-                if match_score >= threshold and match_index != i:
-                    # Append the matches to the result DataFrame
-                    result_df = result_df.append({
-                        "index1": i,
-                        "index2": match_index,
-                        "match_score": match_score,
-                        column: item,
-                        f"{column}_match": choices[match_index]
-                    }, ignore_index=True)
+            for i, item in enumerate(choices):
+                # Compare the current item against the rest of the group
+                for j in range(i + 1, len(choices)):
+                    match_score = fuzz.WRatio(item, choices[j], processor=utils.default_process)
+
+                    if match_score >= threshold:
+                        # Collect the match result as a dictionary
+                        results.append({
+                            "index1": group.index[i],
+                            "index2": group.index[j],
+                            "match_score": match_score,
+                            col: item,
+                            f"{col}_match": choices[j]
+                        })
+
+    # Convert the list of dictionaries to a DataFrame
+    result_df = pd.DataFrame(results)
 
     return result_df
