@@ -1,7 +1,10 @@
+import logging
 import pandas as pd
 
 
 def load_data(input_file):
+    input_file = 'data/' + input_file
+    logging.info(f"Attempting to read data from file: {input_file}")
     if input_file.endswith('.csv'):
         return pd.read_csv(input_file)
 

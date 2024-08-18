@@ -1,5 +1,5 @@
-input_file: "data/database.csv"
-output_file: "results/results.csv"
+input_file_name: "database.csv"
+output_file_name: "results.csv"
 sort_by_columns: ["first_name", "last_name"]
 geospatial_analysis: "True"
 geospatial_columns: ["lat", "lon"]
