@@ -77,8 +77,8 @@ The toolkit uses a YAML configuration file (`config/config.yaml`) to define vari
 Here’s a sample `config.yaml` file:
 
 ```yaml
-input_file: "data/input.csv"
-output_file: "results/output.csv"
+input_file: "input.csv"
+output_file: "output.csv"
 sort_by_columns:
   - "first_name"
   - "last_name"
