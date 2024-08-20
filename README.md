@@ -36,7 +36,12 @@ The **Database Analysis Toolkit** is a Python-based tool designed to perform com
 ```
 
 ## Installation
-
+First, clone the repository to your local machine:
+```bash
+git clone https://github.com/umarhunter/database-analysis-toolkit.git
+cd database-analysis-toolkit
+````
+### <b>Option 1: Using Conda</b>
 ### Prerequisites
 
 - **Conda**: Ensure you have Conda installed. You can install it from [here](https://docs.conda.io/en/latest/miniconda.html).
@@ -44,7 +49,7 @@ The **Database Analysis Toolkit** is a Python-based tool designed to perform com
 
 ### Setting Up the Environment
 
-To create the Conda environment with all necessary dependencies, use the following command:
+To create the Conda environment with all necessary dependencies, navigate to the appropriate OS-specific directory run the following command:
 
 ```bash
 conda env create -f environment.yml
@@ -55,13 +60,19 @@ Activate the environment:
 ```bash
 conda activate database-analysis-env
 ```
-
-### Manual Installation
+### <b>Option 2: Using Docker</b>
+Build & run the Docker image based on the provided Dockerfile:
+```bash
+docker compose build
+docker compose up
+```
+The Docker image will be built and the toolkit will be available at `http://localhost:5000`.
+### Option 3: Manual Installation
 
 If you prefer to install the dependencies manually or without Conda, you can install them using `pip`:
 
 ```bash
-pip install pandas rapidfuzz haversine pyyaml
+pip install -r env/requirements.txt
 ```
 
 ## Configuration
@@ -100,13 +111,13 @@ fuzzy_threshold: 0.8
 To perform the analysis using the configuration file:
 
 ```bash
-python database-analysis.py --config config/config.yaml
+python database_analysis.py --config config/config.yaml
 ```
 
 You can also override specific configurations using command-line arguments:
 
 ```bash
-python database-analysis.py --input_file data/input.csv --output_file results/output.csv --geospatial_analysis True --fuzzy_matching True
+python database_analysis.py --input_file data/input.csv --output_file results/output.csv --geospatial_analysis True --fuzzy_matching True
 ```
 
 ### Supported File Formats
