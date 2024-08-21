@@ -39,6 +39,9 @@ def parse_args():
                         help='Enable or disable fuzzy matching')
     parser.add_argument('--fuzzy_threshold', type=float, help='Threshold for fuzzy matching')
     parser.add_argument('--fuzzy_columns', type=str, nargs='+', help='Columns to apply fuzzy matching')
+    parser.add_argument('--fuzzy_matching_algorithm', type=str,
+                        choices=['WRatio', 'ratio', 'partial_ratio', 'token_sort_ratio', 'semantic'],
+                        help='Fuzzy matching algorithm to use')
     return parser.parse_args()
 
 
@@ -65,6 +68,8 @@ def main():
         config['fuzzy_threshold'] = args.fuzzy_threshold
     if args.fuzzy_columns:
         config['fuzzy_columns'] = args.fuzzy_columns
+    if args.fuzzy_matching_algorithm:
+        config['fuzzy_matching_algorithm'] = args.fuzzy_matching_algorithm
 
     input_file = config['input_file_name']
     output_file = config['output_file_name']
@@ -75,6 +80,7 @@ def main():
     fuzzy_matching = config['fuzzy_matching']
     fuzzy_threshold = config['fuzzy_threshold']
     fuzzy_columns = config['fuzzy_columns']
+    fuzzy_algorithm = config['fuzzy_matching_algorithm']
 
     print("Configuration:")
     print(config)
@@ -89,7 +95,7 @@ def main():
         logging.info(f"Successfully wrote {geo_df.shape[0]} rows to {file_name}")
 
     if fuzzy_matching:
-        fuzz_df = perform_fuzzy_matching(df, sort_by_columns, fuzzy_columns, fuzzy_threshold)
+        fuzz_df = perform_fuzzy_matching(df, sort_by_columns, fuzzy_columns, fuzzy_threshold, algorithm=fuzzy_algorithm)
         file_name = 'fuzzy_matching_' + output_file
         util.save_file(fuzz_df, file_name)
         logging.info(f"Successfully wrote {fuzz_df.shape[0]} rows to {file_name}")

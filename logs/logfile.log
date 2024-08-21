@@ -4,3 +4,21 @@
 2024-08-18 14:27:28 - root - INFO - Successfully wrote 6 rows to geospatial_analysis_results.csv
 2024-08-18 14:27:28 - root - INFO - Attempting to write file with extension: .csv
 2024-08-18 14:27:28 - root - INFO - Successfully wrote 6 rows to fuzzy_matching_results.csv
+2024-08-18 18:56:18 - root - INFO - Attempting to read data from file: data/database.csv
+2024-08-18 18:56:18 - root - INFO - Loaded 448 rows and 9 columns
+2024-08-18 18:56:18 - root - INFO - Attempting to write file with extension: .csv
+2024-08-18 18:56:18 - root - INFO - Successfully wrote 6 rows to geospatial_analysis_results.csv
+2024-08-18 18:56:18 - root - INFO - Attempting to write file with extension: .csv
+2024-08-18 18:56:18 - root - INFO - Successfully wrote 6 rows to fuzzy_matching_results.csv
+2024-08-20 21:25:39 - root - INFO - Attempting to read data from file: data/database.csv
+2024-08-20 21:25:39 - root - INFO - Loaded 448 rows and 9 columns
+2024-08-20 21:25:39 - root - INFO - Attempting to write file with extension: .csv
+2024-08-20 21:25:39 - root - INFO - Successfully wrote 6 rows to geospatial_analysis_results.csv
+2024-08-20 21:25:39 - root - INFO - Attempting to write file with extension: .csv
+2024-08-20 21:25:39 - root - INFO - Successfully wrote 6 rows to fuzzy_matching_results.csv
+2024-08-20 21:26:03 - root - INFO - Attempting to read data from file: data/database.csv
+2024-08-20 21:26:03 - root - INFO - Loaded 448 rows and 9 columns
+2024-08-20 21:26:03 - root - INFO - Attempting to write file with extension: .csv
+2024-08-20 21:26:03 - root - INFO - Successfully wrote 6 rows to geospatial_analysis_results.csv
+2024-08-20 21:26:06 - root - INFO - Attempting to write file with extension: .csv
+2024-08-20 21:26:06 - root - INFO - Successfully wrote 6 rows to fuzzy_matching_results.csv
