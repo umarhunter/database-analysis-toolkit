@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - ./data:/code/data  # Maps 'data/' on the host to '/code/data' inside the container
+      - .:/code  # Sync the entire codebase for development
+    ports:
+      - "8000:5000"
+    environment:
+      FLASK_ENV: development  # Set Flask environment to development
+    command: flask run --host=0.0.0.0  # Command to run your Flask app
+
+  redis:
+    image: "redis:alpine"
